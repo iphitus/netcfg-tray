@@ -1,0 +1,51 @@
+#! /bin/bash
+
+. /usr/lib/network/network
+. /etc/rc.d/functions
+
+# Override output with silence, the GUI is not interested in this pretty printing.
+stat_busy() { true; }
+stat_fail() { true; }
+stat_append() { true; }
+status() { true; }
+
+while [[ $1 == * ]]; do
+    case "$1" in
+    log)
+        logfile=$2
+        shift 2
+        ;;
+    up)
+        profile=$2
+        CHECK="NO";
+        profile_up $profile
+        exit $?
+        ;;
+    down)
+        profile=$2
+        profile_down $profile
+        exit $?
+        ;;
+    help)
+        echo "blah about sudo, use netcfg2 for cli"
+        exit 0
+        ;;
+    auto-*)
+        /etc/rc.d/net-$1 $2
+        exit $?
+        ;;
+    *)
+        echo "yeah... no."
+        exit 1
+    esac
+done
+#    while [[ $1 == -* ]]; do
+#        case "$1" in
+#          -h|--help|-\?) show_help; exit 0;;
+#          -v) verbose=1; shift;;
+#          -f) output_file=$2; shift 2;;
+#          --) shift; break;;
+#          -*) echo "invalid option: $1"; show_help;exit 1;;
+#        esac
+#    done
+       
