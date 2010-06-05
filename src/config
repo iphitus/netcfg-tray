@@ -1,0 +1,19 @@
+# Default configuration, do not edit this here.
+# Instead copy this directory to ~/.config/ and edit it there
+
+[main]
+root_cmd=gksudo
+# Configure sudo to allow passwordless /usr/bin/netcfg-tray-helper then use the below for passwordless configuration
+# root_cmd=sudo 
+
+[notify]
+
+# notify= ?
+#   libnotify (depends pynotify/notification-daemon)
+#   dzen (depends dzen2)
+#   external (Set external_cmd to an external command)
+#   none (prints to stdout)
+
+notify=libnotify
+external_cmd=xterm -e 
+dzen_args=-p 2
